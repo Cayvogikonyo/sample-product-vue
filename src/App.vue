@@ -1,15 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <nav class="shadow-lg h-16 flex justify-between align-center">
+    <img alt="Vue logo" class="w-16 h-16" src="./assets/ZE.png">
+    <logged-in-nav :user="user"/>
+  </nav>
+  <dashboard msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Dashboard from './Pages/Dashboard'
+import '@/assets/app.css';
+import LoggedInNav from './utilities/components/LoggedInNav.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Dashboard,
+    LoggedInNav
+  },
+  data(){
+    return{
+      user:{
+        name: 'John Doe',
+        profile_photo: null,
+      }
+    }
   }
 }
 </script>
@@ -21,6 +35,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
