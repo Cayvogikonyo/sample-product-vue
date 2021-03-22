@@ -3,13 +3,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/add-product',
-    name: 'addProduct',
+    path: '/new-product',
+    name: 'newProduct',
     component: () => import(/* webpackChunkName: "about" */ '../Pages/AddProduct.vue')
   },
   {
-    path: '/add-supplier',
-    name: 'addSupplier',
+    path: '/new-supplier',
+    name: 'newSupplier',
     component: () => import(/* webpackChunkName: "about" */ '../Pages/AddSupplier.vue')
   },
   {

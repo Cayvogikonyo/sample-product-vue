@@ -27,8 +27,18 @@
             
           </template>
           <template #actions>
-            <custom-btn :type="'cancel'"> <router-link to="/"> Cancel </router-link> </custom-btn>
-            <custom-btn @click="createNewProduct"> Create</custom-btn>
+            <div v-if="success">
+              <p class="border-2 rounded p-3 px-4 text-green-500 border-green-500" :key="index" v-for="(item, index) in response">{{item}}</p>
+            </div>
+            <div v-else>
+              <custom-btn :type="'cancel'"> <router-link to="/"> Cancel </router-link> </custom-btn>
+              <custom-btn @click="createNewProduct"> Create</custom-btn>
+            </div>
+           
+            <div v-if="errors.length > 0">
+              <p class="text-yellow-600">Something went wrong</p>
+            </div>
+           
           </template>
         </form-component>
     </app-layout>
@@ -49,6 +59,8 @@ export default {
     return {
       errors: [],
       loading:false,
+      success:false,
+      response: {},
       form: {
         name: '',
         description: '',
@@ -63,6 +75,13 @@ export default {
        .then((responseJson) =>{
          this.loading = false;
          if(responseJson.status === 200){
+           this.success = true;
+            this.response = responseJson.data;
+           var timeOut = setTimeout(()=>{
+             clearInterval(timeOut);
+             this.success = false;
+             this.$router.push('products')
+           }, 1600)
            this.loading = false;
          }else if(responseJson.errors){
            this.errors = responseJson.errors

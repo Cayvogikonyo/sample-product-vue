@@ -1,54 +1,63 @@
 <template>
-  <data-display>
-      <div class="flex flex-wrap">
-        <div class="bg-white p-4 m-2 shadow transform duration-500 hover:-translate-y-1" :key="index" v-for="(item, index) in items">
-            <h5>{{item.name}}</h5>
-        </div>
-      </div>
-  </data-display>
+  <div>
+    <table class="w-full">
+        <thead>
+            <tr class="bg-gray-800 text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Order Number</th>
+                <th class="p-3">Product Count</th>
+                <th class="p-3">Created</th>
+                <th class="p-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="bg-white m-2 shadow transform duration-500 hover:-translate-y-1" :key="index" v-for="(item, index) in items">
+            <td class="p-4">{{index+1}}</td> 
+            <td class="p-4">{{item.orderNumber}}</td> 
+            <td class="p-4">{{item.count}}</td> 
+            <td class="p-4">{{timeLapsed(item.created_at)}} ago</td> 
+            <td class="p-4">
+                <cus-button class="mx-3" :type="'cancel'"> Delete </cus-button>
+                <cus-button> Open </cus-button>
+            </td> 
+        </tr>
+        </tbody>
+    </table>
+      
+  </div>
 </template>
 
 <script>
-import DataDisplay from "../utilities/components/DataDisplay.vue";
-import {apiGetService} from '../utilities/ApiService'
+import CusButton from '../utilities/components/Button.vue';
+import TimeUtility from '../utilities/Mixins/TimeUtility';
 
 export default {
-  components: { DataDisplay },
-  props:{
-      top:{
-          type: Boolean,
-          default: false
-      }
-
-  },
-    mounted(){
-        if(this.top){
-            this.topSales();
-        }else{
-            this.getOrders();
+    components:{
+        CusButton,
+    },
+    props:{
+        top:{
+            type: Boolean,
+            default: false
+        },
+        items:{
+            type: Array,
+            default: ()=>{
+                return []
+            }
         }
+
+    },
+    mixins:[TimeUtility],
+
+    mounted(){
+
     },
     data(){
         return {
-            items: []
+
         }
     },
-    methods:{
-        async getOrders(){
-            apiGetService('api/orders').then((result) => {
-                this.items = result.data.data;
-            }).catch((err) => {
-                this.error = err;
-            });
-        },
-        async topSales(){
-            apiGetService('api/top-sales').then((result) => {
-                this.items = result.data.data;
-            }).catch((err) => {
-                this.error = err;
-            });
-        },
-    }
 }
 </script>
 

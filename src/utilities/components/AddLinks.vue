@@ -10,8 +10,8 @@
         <template #content>
             
         <div>
-            <router-link class="block p-3 shadow-sm hover:bg-gray-200" to="/add-product">Add Product</router-link>
-            <router-link class="block p-3 shadow-sm hover:bg-gray-200" to="/add-supplier">Add Supplier</router-link>
+            <router-link class="block p-3 shadow-sm hover:bg-gray-200" to="/new-product">Add Product</router-link>
+            <router-link class="block p-3 shadow-sm hover:bg-gray-200" to="/new-supplier">Add Supplier</router-link>
         </div>
         </template>
     </drop-down>

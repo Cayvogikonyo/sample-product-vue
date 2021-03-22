@@ -1,12 +1,15 @@
 import axios from "axios";
 const endPoint = "http://localhost:8000/api/" //change to production url on deployment
 
+//Authorization errors are handled here using interceptors
+
+
 export async function apiGetService(route){
     return axios.get( endPoint + route )
     .then(responseBody => {
-      console.log('response', responseBody);
+      console.log('json', responseBody);
       if (
-        responseBody.status !== 200 
+        responseBody.status === 401 
       ) {
         console.log('Something went wrong.');
       }
@@ -17,9 +20,8 @@ export async function apiGetService(route){
 export async function apiPostService(route, body){
     return axios.post( endPoint + route, body)
     .then(responseBody => {
-      console.log('response', responseBody);
       if (
-        responseBody.status !== 200 
+        responseBody.status === 401 
       ) {
         console.log('Something went wrong.');
       }

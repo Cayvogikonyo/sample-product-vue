@@ -6,11 +6,10 @@
             </h2>
         </template>
         <data-display>
-            <div class="flex flex-wrap">
-                <div class="bg-white p-4 m-2 shadow transform duration-500 hover:-translate-y-1" :key="index" v-for="(item, index) in items">
-                    <h5>{{item.name}}</h5>
-                </div>
+            <div class="flex justify-end">
+                <custom-button> <router-link to="/new-product"> New Product </router-link> </custom-button>
             </div>
+            <products-selection :products="products" class="w-full md:w-2/3 mx-auto"/>
         </data-display>
     </app-layout>
 </template>
@@ -19,21 +18,23 @@
 import DataDisplay from "../utilities/components/DataDisplay.vue";
 import {apiGetService} from '../utilities/ApiService'
 import AppLayout from '../utilities/components/AppLayout.vue';
+import ProductsSelection from '../utilities/components/ProductsSelection.vue';
+import CustomButton from '../utilities/components/Button.vue';
 
 export default {
-  components: { DataDisplay, AppLayout },
+  components: { DataDisplay, AppLayout, ProductsSelection, CustomButton },
     mounted(){
-        this.getProducts();
+      this.getProducts();
     },
     data(){
         return {
-            items: []
+            products: [],
         }
     },
     methods:{
         async getProducts(){
-            apiGetService('api/products').then((result) => {
-                this.items = result.data.data;
+            apiGetService('products').then((result) => {
+                this.products = result.data.data;
             }).catch((err) => {
                 this.error = err;
             });

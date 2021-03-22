@@ -22,10 +22,10 @@
                             <chart-display :chartdata="chartData" v-else/>
                         </div>
                         <div class="w-full md:w-1/2">
-                            <div class="flex justify-center" v-if="loading">
+                            <div class="flex justify-center" v-if="items.length === 0">
                                 <loader />
                             </div>
-                            <orders-list :top="false"/>
+                            <orders-list :items="items" v-else/>
                         </div>
                     </div>
                 </data-display>
@@ -57,10 +57,12 @@
         mounted(){
             this.getElements();
             this.getChartData();
+            this.topSales();
         },
         data(){
             return {
                 loading: true,
+                items: [],
                 elements: [],
                 chartData: null,
             }
@@ -80,6 +82,14 @@
                     //this.loading=false;
                 }).catch((err) => {
                     this.error = err;   
+                });
+            },
+            async topSales(){
+                apiGetService('top-sales').then((result) => {
+                    this.items = result.data.data;
+                    console.log(result);
+                }).catch((err) => {
+                    this.error = err;
                 });
             },
         }

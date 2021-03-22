@@ -4,15 +4,34 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight p-4">
                 Suppliers
             </h2>
+
         </template>
         <data-display>
-            <template #header>
-                <h4 class="font-bold">Suppliers</h4>
-            </template>
+            <div class="flex justify-end">
+                <custom-button> <router-link to="/new-supplier"> New Supplier </router-link> </custom-button>
+            </div>
             <div class="flex flex-wrap">
-                <div class="bg-white p-4 m-2 shadow transform duration-500 hover:-translate-y-1" :key="index" v-for="(item, index) in items">
-                    <h5>{{item.name}}</h5>
-                </div>
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-800 text-white">
+                            <th class="p-3">#</th>
+                            <th class="p-3">Name</th>
+                            <th class="p-3">Created</th>
+                            <th class="p-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="bg-white m-2 shadow transform duration-500 hover:-translate-y-1" :key="index" v-for="(item, index) in items">
+                        <td class="p-4">{{index+1}}</td> 
+                        <td class="p-4">{{item.name}}</td> 
+                        <td class="p-4">{{timeLapsed(item.created_at)}} ago</td> 
+                        <td class="p-4">
+                            <custom-button class="mx-3" :type="'cancel'"> Delete </custom-button>
+                            <custom-button> Open </custom-button>
+                        </td> 
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </data-display>
     </app-layout>
@@ -22,9 +41,12 @@
 import DataDisplay from "../utilities/components/DataDisplay.vue";
 import {apiGetService} from '../utilities/ApiService'
 import AppLayout from '../utilities/components/AppLayout.vue';
+import TimeUtility from '../utilities/Mixins/TimeUtility';
+import CustomButton from '../utilities/components/Button.vue';
 
 export default {
-  components: { DataDisplay, AppLayout },
+    
+  components: { DataDisplay, AppLayout, CustomButton },
     mounted(){
         this.getSuppliers();
     },
@@ -33,9 +55,10 @@ export default {
             items: []
         }
     },
+    mixins:[TimeUtility],
     methods:{
         async getSuppliers(){
-            apiGetService('api/suppliers').then((result) => {
+            apiGetService('suppliers').then((result) => {
                 this.items = result.data.data;
                 console.log(this.items)
             }).catch((err) => {

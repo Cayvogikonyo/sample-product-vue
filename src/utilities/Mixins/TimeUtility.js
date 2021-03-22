@@ -19,7 +19,8 @@ export default {
             var d1 = new Date();
             var diff = (d1.getTime() - d.getTime()) / 60000; //divide by milli seconds in a minute
             var mintdiff = Math.abs(Math.round(diff));
-            let hours, min = 0;
+            var hours = 0;
+            var min = 0;
             if(mintdiff < 60){
                 return mintdiff + ' min';
             }else if(mintdiff > 1440){

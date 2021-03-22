@@ -4,6 +4,9 @@
       <img alt="Ze Marketplace" class="w-16 h-16" src="./assets/ZE.png">
     </router-link>
     <div class="flex flex-wrap">
+      <router-link class="p-4 py-2 my-2 items-center hover:bg-indigo-100" to="/orders">Orders</router-link>
+      <router-link class="p-4 py-2 my-2 items-center hover:bg-indigo-100" to="/suppliers">Suppliers</router-link>
+      <router-link class="p-4 py-2 my-2 items-center hover:bg-indigo-100" to="/products">Products</router-link>
       <add-links />
       <create-links />
       <logged-in-nav />
