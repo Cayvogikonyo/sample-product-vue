@@ -17,7 +17,7 @@
             <td class="p-4">{{item.count}}</td> 
             <td class="p-4">{{timeLapsed(item.created_at)}} ago</td> 
             <td class="p-4">
-                <cus-button class="mx-3" :type="'cancel'"> Delete </cus-button>
+                <cus-button class="mx-3" :type="'cancel'" @click="$emit('delete-item', item)"> Delete </cus-button>
                 <cus-button> Open </cus-button>
             </td> 
         </tr>
