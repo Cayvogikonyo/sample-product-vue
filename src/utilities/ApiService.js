@@ -1,5 +1,5 @@
 import axios from "axios";
-const endPoint = "http://localhost:8000/api/" //change to production url on deployment
+const endPoint = "https://sample.dev.thebrainerke.co.ke/api/" //change to production url on deployment
 
 //Authorization errors are handled here using interceptors, if invalid, inititate request token and save to local Storage/cookie
 
