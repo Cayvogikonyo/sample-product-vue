@@ -1,12 +1,12 @@
 <template>
     <app-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight p-4">
                 Dashboard
             </h2>
         </template>
 
-        <div class="py-12" v-if="!loading">
+        <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex flex-wrap md:flex-row sm:flex-col max-w-full mx-auto justify-center md:justify-between sm:px-6 md:px-0 md:mx-6">
                     <date-stat  />
@@ -14,11 +14,23 @@
                 </div>
 
                 <data-display>
-                    <chart-display :chartdata="chartData" v-if="chartData"/>
+                    <div class="flex">
+                        <div class="w-full md:w-1/2">
+                            <div class="flex justify-center" v-if="loading">
+                                <loader />
+                            </div>
+                            <chart-display :chartdata="chartData" v-else/>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <div class="flex justify-center" v-if="loading">
+                                <loader />
+                            </div>
+                            <orders-list :top="false"/>
+                        </div>
+                    </div>
                 </data-display>
             </div>
         </div>
-        <loader />
     </app-layout>
 </template>
 
@@ -30,6 +42,7 @@
     import ChartDisplay from '../utilities/components/ChartDisplay.vue'
     import DataDisplay from '../utilities/components/DataDisplay.vue'
     import Loader from '../utilities/components/Loader.vue'
+    import OrdersList from './OrdersList.vue'
 
     export default {
         components: {
@@ -38,10 +51,12 @@
             DashboardStat,
             ChartDisplay,
             DataDisplay,
-            Loader
+            Loader,
+            OrdersList,
         },
         mounted(){
             this.getElements();
+            this.getChartData();
         },
         data(){
             return {
@@ -52,18 +67,17 @@
         },
         methods:{
             async getElements(){
-                apiGetService('api/elements').then((result) => {
+                apiGetService('elements').then((result) => {
                     this.elements = result.data;
-                    this.loading=false;
                 }).catch((err) => {
                     this.error = err;
                 });
             },
             //Fetch graph report data
             async getChartData(){
-                apiGetService('api/reports/product-sales').then((result) => {
+                apiGetService('reports/product-sales').then((result) => {
                     this.chartData = result.data;
-                    this.loading=false;
+                    //this.loading=false;
                 }).catch((err) => {
                     this.error = err;   
                 });

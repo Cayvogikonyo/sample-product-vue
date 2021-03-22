@@ -29,9 +29,9 @@
 
             <!-- Authentication -->
             <form @submit.prevent="logout">
-                <dropdown-link as="button">
+                <drop-down-link as="button">
                     Logout
-                </dropdown-link>
+                </drop-down-link>
             </form>
         </template>
     </drop-down>
@@ -39,8 +39,9 @@
 
 <script>
 import DropDown from './DropDown.vue'
+import DropDownLink from './DropDownLink.vue'
 export default {
-  components: { DropDown },
+  components: { DropDown,DropDownLink },
     props:{
         user:{
             type: Object,

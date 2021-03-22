@@ -1,8 +1,8 @@
 import axios from "axios";
-const endPoint = "http://localhost:8000/" //change to production url on deployment
+const endPoint = "http://localhost:8000/api/" //change to production url on deployment
 
 export async function apiGetService(route){
-    return axios.get( endPoint+route )
+    return axios.get( endPoint + route )
     .then(responseBody => {
       console.log('response', responseBody);
       if (
@@ -14,8 +14,8 @@ export async function apiGetService(route){
     })
 }
 
-export async function apiPostService(route){
-    return axios.post( endPoint+route )
+export async function apiPostService(route, body){
+    return axios.post( endPoint + route, body)
     .then(responseBody => {
       console.log('response', responseBody);
       if (

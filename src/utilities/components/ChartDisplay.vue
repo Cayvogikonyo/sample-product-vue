@@ -30,6 +30,14 @@ export default {
             }
         }
     },
+    computed:{
+        chartStyles () {
+            return {
+                height: `${this.height}em`,
+                //position: 'relative'
+            }
+        }
+    },
     data(){
         return {
             chart: 'line',
@@ -37,6 +45,7 @@ export default {
                 responsive: true,
                 maintainAspectRatio: false
             },
+            height: 25
         }
     }
 }

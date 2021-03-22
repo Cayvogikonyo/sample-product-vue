@@ -1,30 +1,27 @@
 <template>
   <nav class="shadow-lg h-16 flex justify-between align-center">
-    <img alt="Vue logo" class="w-16 h-16" src="./assets/ZE.png">
-    <logged-in-nav :user="user"/>
+    <router-link to="/"> 
+      <img alt="Ze Marketplace" class="w-16 h-16" src="./assets/ZE.png">
+    </router-link>
+    <div class="flex flex-wrap">
+      <add-links />
+      <create-links />
+      <logged-in-nav />
+    </div>
   </nav>
-  <dashboard msg="Welcome to Your Vue.js App"/>
+  <router-view/>
 </template>
 
+
 <script>
-import Dashboard from './Pages/Dashboard'
+import LoggedInNav from './utilities/components/LoggedInNav.vue'
 import '@/assets/app.css';
-import LoggedInNav from './utilities/components/LoggedInNav.vue';
+import CreateLinks from './utilities/components/CreateLinks.vue';
+import AddLinks from './utilities/components/AddLinks.vue';
 
 export default {
-  name: 'App',
-  components: {
-    Dashboard,
-    LoggedInNav
-  },
-  data(){
-    return{
-      user:{
-        name: 'John Doe',
-        profile_photo: null,
-      }
-    }
-  }
+  components: { LoggedInNav, AddLinks, CreateLinks },
+
 }
 </script>
 
@@ -35,5 +32,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
