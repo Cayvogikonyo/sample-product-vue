@@ -72,7 +72,9 @@
                 apiGetService('elements').then((result) => {
                     this.elements = result.data;
                 }).catch((err) => {
-                    this.error = err;
+                    if(err.request && err.request.status == 401){
+                        this.$router.push('login')
+                    }
                 });
             },
             //Fetch graph report data
@@ -81,7 +83,9 @@
                     this.chartData = result.data;
                     //this.loading=false;
                 }).catch((err) => {
-                    this.error = err;   
+                    if(err.request && err.request.status == 401){
+                        this.$router.push('login')
+                    }
                 });
             },
             async topSales(){
@@ -89,7 +93,9 @@
                     this.items = result.data.data;
                     console.log(result);
                 }).catch((err) => {
-                    this.error = err;
+                    if(err.request && err.request.status == 401){
+                        this.$router.push('login')
+                    }
                 });
             },
         }

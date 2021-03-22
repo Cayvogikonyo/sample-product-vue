@@ -1,5 +1,5 @@
 import axios from "axios";
-const endPoint = "https://sample.dev.thebrainerke.co.ke/api/" //change to production url on deployment
+const endPoint = "http://localhost:8000/api/"//"https://sample.dev.thebrainerke.co.ke/api/" //change to production url on deployment
 
 //Authorization errors are handled here using interceptors, if invalid, inititate request token and save to local Storage/cookie
 
@@ -15,6 +15,7 @@ export async function apiGetService(route){
       }
       return responseBody;
     })
+   
 }
 
 export async function apiPostService(route, body){
@@ -27,4 +28,10 @@ export async function apiPostService(route, body){
       }
       return responseBody;
     })
+}
+
+export const requestLogin = (err) => {
+    if(err.request && err.request.status == 401){
+        this.$router.push('login')
+    }
 }
